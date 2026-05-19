@@ -8,20 +8,61 @@ It covers:
 - Cross-browser execution
 - Parallel test execution
 - Page Object Model (POM)
-- CI/CD integration (GitHub Actions & Jenkins)
 - Reporting (HTML & Allure)
 
 ---
-
 # 📌 Tech Stack
 
 - Playwright (Latest)
 - JavaScript (ES Modules)
 - Node.js
 - Allure Reporting
-- GitHub Actions (CI/CD)
-- Jenkins Pipeline
+- GitHub Actions 
 
 ---
-
 # 📂 Project Structure
+
+playwright-framework/
+│
+├── tests/
+│ ├── login.spec.js
+│ ├── order.spec.js
+│ └── api.spec.js
+│
+├── pages/
+│ ├── LoginPage.js
+│ ├── InventoryPage.js
+│ └── CheckoutPage.js
+│
+├── utils/
+│ └── testData.js
+│
+├── playwright.config.js
+├── package.json
+└── README.md
+
+# ✅ Features Implemented
+
+## 🔹 UI Automation
+- Login Scenarios:
+  - Valid Login
+  - Invalid Login
+  - Locked User
+- Product Flow:
+  - Add to Cart
+  - Checkout
+  - Order Completion
+
+## 🔹 API Automation
+- GET Books
+- POST Token Generation
+- POST Order (Authorized)
+- Token-based Authentication
+
+## 🔹 Framework Features
+- Page Object Model (POM)
+- Reusable components
+- Parallel execution
+- Cross-browser support:
+  - Chromium
+  - Firefox
