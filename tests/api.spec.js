@@ -14,6 +14,8 @@ test.describe('API Tests', () => {
     });
 
     token = (await res.json()).accessToken;
+    console.log(token)
+
   });
 
   test('Create Order', async ({ request }) => {
@@ -27,7 +29,7 @@ test.describe('API Tests', () => {
       }
     });
 
-    expect(res.status()).toBe(201);
+   expect(res.status()).toBe(201);
   });
 
 });
