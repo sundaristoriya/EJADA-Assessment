@@ -1,28 +1,26 @@
 // tests/api.spec.js
-import { test, expect, request } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 
-test.describe('API Tests', () => {
+test.describe('API Tests - Parallel Safe', () => {
 
-  let token;
+  test('Create Order', async ({ request }) => {
 
-  test.beforeAll(async ({ request }) => {
-    const res = await request.post('https://simple-books-api.glitch.me/api-clients/', {
+    // ✅ Step 1: Generate token (unique per test)
+    const tokenRes = await request.post('https://simple-books-api.glitch.me/api-clients/', {
       data: {
         clientName: 'User',
-        clientEmail: `user${Date.now()}@mail.com`
+        clientEmail: `user${Date.now()}_${Math.random()}@mail.com`
       }
     });
 
-    token = (await res.json()).accessToken;
-    console.log(token)
+    expect(tokenRes.status()).toBe(201);
 
-  });
+    const token = (await tokenRes.json()).accessToken;
 
-  test('Create Order', async ({ request }) => {
-    const res = await request.post('https://simple-books-api.glitch.me/orders', {
+    // ✅ Step 2: Create Order
+    const orderRes = await request.post('https://simple-books-api.glitch.me/orders', {
       headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type':'application/json'
+        Authorization: `Bearer ${token}`
       },
       data: {
         bookId: 1,
@@ -30,7 +28,9 @@ test.describe('API Tests', () => {
       }
     });
 
-   expect(res.status()).toBe(201);
+    console.log(await orderRes.text()); // debug
+
+    expect(orderRes.status()).toBe(201);
   });
 
 });
