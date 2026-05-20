@@ -21,7 +21,8 @@ test.describe('API Tests', () => {
   test('Create Order', async ({ request }) => {
     const res = await request.post('https://simple-books-api.glitch.me/orders', {
       headers: {
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
+        'Content-Type':'application/json'
       },
       data: {
         bookId: 1,
